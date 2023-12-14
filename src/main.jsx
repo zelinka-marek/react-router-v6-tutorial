@@ -27,7 +27,7 @@ let router = createBrowserRouter(
       action: async () => {
         let contact = await contactApi.createEmpty();
 
-        return json({ contact });
+        return redirect(`/contacts/${contact.id}/edit`);
       },
       children: [
         {
