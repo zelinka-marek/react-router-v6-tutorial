@@ -56,6 +56,14 @@ let router = createBrowserRouter(
             return redirect(`/contacts/${params.contactId}`);
           },
         },
+        {
+          path: "contacts/:contactId/destroy",
+          action: async ({ params }) => {
+            await contactApi.deleteById(params.contactId);
+
+            return redirect("/");
+          },
+        },
       ],
     },
   ],
