@@ -1,11 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter, json } from "react-router-dom";
+import * as contactApi from "./api/contacts";
 import { ErrorPage } from "./components/error-page";
 import "./index.css";
 import Contact from "./routes/contact";
 import Root from "./routes/root";
-import * as contactsApi from "./api/contacts";
 
 let router = createBrowserRouter([
   {
@@ -13,11 +13,21 @@ let router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     loader: async () => {
-      let contacts = await contactsApi.getContacts();
+      let contacts = await contactApi.getContacts();
 
       return json({ contacts });
     },
-    children: [{ path: "contacts/:contactId", element: <Contact /> }],
+    action: async () => {
+      let contact = await contactApi.createContact();
+
+      return json({ contact });
+    },
+    children: [
+      {
+        path: "contacts/:contactId",
+        element: <Contact />,
+      },
+    ],
   },
 ]);
 
