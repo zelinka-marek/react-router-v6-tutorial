@@ -14,7 +14,7 @@ export default function Root() {
 
   return (
     <>
-      <div id="sidebar">
+      <aside id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
           <form id="search-form" role="search">
@@ -61,10 +61,10 @@ export default function Root() {
             </p>
           )}
         </nav>
-      </div>
-      <div id="detail" className={isLoading ? "loading" : undefined}>
+      </aside>
+      <main id="detail" className={isLoading ? "loading" : undefined}>
         <Outlet />
-      </div>
+      </main>
     </>
   );
 }
