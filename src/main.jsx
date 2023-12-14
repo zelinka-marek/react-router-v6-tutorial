@@ -7,18 +7,19 @@ import "./index.css";
 import Contact from "./routes/contact";
 import Root from "./routes/root";
 
-let router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    loader: async () => {
-      let contacts = await contactApi.getContacts();
+let router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      loader: async () => {
+        let contacts = await contactApi.getAll();
 
-      return json({ contacts });
-    },
-    action: async () => {
-      let contact = await contactApi.createContact();
+        return json({ contacts });
+      },
+      action: async () => {
+        let contact = await contactApi.createEmpty();
 
       return json({ contact });
     },

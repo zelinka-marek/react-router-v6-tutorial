@@ -2,7 +2,7 @@ import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
 
-export async function getContacts(query) {
+export async function getAll(query) {
   await fakeNetwork(`getContacts:${query}`);
 
   let contacts = await localforage.getItem("contacts");
@@ -16,13 +16,13 @@ export async function getContacts(query) {
   return contacts.sort(sortBy("last", "createdAt"));
 }
 
-export async function createContact() {
+export async function createEmpty() {
   await fakeNetwork();
 
   let id = Math.random().toString(36).substring(2, 9);
   let contact = { id, createdAt: Date.now() };
 
-  let contacts = await getContacts();
+  let contacts = await getAll();
   contacts.unshift(contact);
 
   await set(contacts);
@@ -30,7 +30,7 @@ export async function createContact() {
   return contact;
 }
 
-export async function getContact(id) {
+export async function getById(id) {
   await fakeNetwork(`contact:${id}`);
 
   let contacts = await localforage.getItem("contacts");
@@ -39,7 +39,7 @@ export async function getContact(id) {
   return contact ?? null;
 }
 
-export async function updateContact(id, updates) {
+export async function updateById(id, updates) {
   await fakeNetwork();
 
   let contacts = await localforage.getItem("contacts");
@@ -54,7 +54,7 @@ export async function updateContact(id, updates) {
   return contact;
 }
 
-export async function deleteContact(id) {
+export async function deleteById(id) {
   let contacts = await localforage.getItem("contacts");
 
   let index = contacts.findIndex((contact) => contact.id === id);
