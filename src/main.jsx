@@ -11,6 +11,7 @@ import { ErrorPage } from "./components/error-page";
 import "./index.css";
 import Contact from "./routes/contact";
 import EditContact from "./routes/edit-contact";
+import Index from "./routes/index";
 import Root from "./routes/root";
 
 let router = createBrowserRouter(
@@ -30,6 +31,7 @@ let router = createBrowserRouter(
         return redirect(`/contacts/${contact.id}/edit`);
       },
       children: [
+        { index: true, element: <Index /> },
         {
           path: "contacts/:contactId",
           element: <Contact />,
