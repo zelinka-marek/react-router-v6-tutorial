@@ -39,6 +39,9 @@ let router = createBrowserRouter(
           element: <Contact />,
           loader: async ({ params }) => {
             let contact = await contactApi.getById(params.contactId);
+            if (!contact) {
+              throw json({ contact }, { status: 404, statusText: "Not Found" });
+            }
 
             return json({ contact });
           },
