@@ -1,33 +1,53 @@
+import { useEffect } from "react";
 import {
   Form,
   NavLink,
   Outlet,
   useLoaderData,
   useNavigation,
+  useSubmit,
 } from "react-router-dom";
 
 export default function Root() {
-  let { contacts } = useLoaderData();
+  let { searchQuery, contacts } = useLoaderData();
 
   let navigation = useNavigation();
   let isLoading = navigation.state === "loading";
+  let isSearching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
+
+  let submit = useSubmit();
+
+  // Sync input value with the current URL Search Params
+  useEffect(() => {
+    document.getElementById("q").value = searchQuery;
+  }, [searchQuery]);
 
   return (
     <>
       <aside id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
-          <form id="search-form" role="search">
+          <Form id="search-form" role="search">
             <input
               id="q"
               aria-label="Search contacts"
               placeholder="Search"
               type="search"
               name="q"
+              className={isSearching ? "loading" : undefined}
+              defaultValue={searchQuery}
+              onChange={(event) => {
+                let isFirstSearch = searchQuery === null;
+                submit(event.currentTarget.form, {
+                  replace: !isFirstSearch,
+                });
+              }}
             />
-            <div id="search-spinner" aria-hidden hidden={true} />
+            <div id="search-spinner" aria-hidden hidden={!isSearching} />
             <div className="sr-only" aria-live="polite"></div>
-          </form>
+          </Form>
           <Form method="post">
             <button type="submit">New</button>
           </Form>

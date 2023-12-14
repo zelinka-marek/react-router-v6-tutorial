@@ -20,10 +20,12 @@ let router = createBrowserRouter(
       path: "/",
       element: <Root />,
       errorElement: <ErrorPage />,
-      loader: async () => {
-        let contacts = await contactApi.getAll();
+      loader: async ({ request }) => {
+        let url = new URL(request.url);
+        let searchQuery = url.searchParams.get("q");
+        let contacts = await contactApi.getAll(searchQuery);
 
-        return json({ contacts });
+        return json({ searchQuery, contacts });
       },
       action: async () => {
         let contact = await contactApi.createEmpty();
