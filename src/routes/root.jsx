@@ -12,10 +12,11 @@ export default function Root() {
   let { searchQuery, contacts } = useLoaderData();
 
   let navigation = useNavigation();
-  let isLoading = navigation.state === "loading";
   let isSearching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
+  let isLoading = navigation.state === "loading";
+  let shouldDisplayLoadingOverlay = !isSearching && isLoading;
 
   let submit = useSubmit();
 
@@ -82,7 +83,10 @@ export default function Root() {
           )}
         </nav>
       </aside>
-      <main id="detail" className={isLoading ? "loading" : undefined}>
+      <main
+        id="detail"
+        className={shouldDisplayLoadingOverlay ? "loading" : undefined}
+      >
         <Outlet />
       </main>
     </>
