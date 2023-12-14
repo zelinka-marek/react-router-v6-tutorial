@@ -58,6 +58,7 @@ let router = createBrowserRouter(
         },
         {
           path: "contacts/:contactId/destroy",
+          errorElement: <div>Oops! There was an error.</div>,
           action: async ({ params }) => {
             await contactApi.deleteById(params.contactId);
 
