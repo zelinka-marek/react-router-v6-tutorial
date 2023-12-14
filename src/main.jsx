@@ -21,15 +21,20 @@ let router = createBrowserRouter(
       action: async () => {
         let contact = await contactApi.createEmpty();
 
-      return json({ contact });
-    },
-    children: [
-      {
-        path: "contacts/:contactId",
-        element: <Contact />,
+        return json({ contact });
       },
-    ],
-  },
+      children: [
+        {
+          path: "contacts/:contactId",
+          element: <Contact />,
+          loader: async ({ params }) => {
+            let contact = await contactApi.getById(params.contactId);
+
+            return json({ contact });
+          },
+        },
+      ],
+    },
   ],
   {
     future: {
