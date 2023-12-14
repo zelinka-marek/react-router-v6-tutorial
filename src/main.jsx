@@ -1,8 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import {
+  Route,
   RouterProvider,
   createBrowserRouter,
+  createRoutesFromElements,
   json,
   redirect,
 } from "react-router-dom";
@@ -15,82 +17,73 @@ import Index from "./routes/index";
 import Root from "./routes/root";
 
 let router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <Root />,
-      errorElement: <ErrorPage />,
-      loader: async ({ request }) => {
+  createRoutesFromElements(
+    <Route
+      path="/"
+      element={<Root />}
+      loader={async ({ request }) => {
         let url = new URL(request.url);
         let searchQuery = url.searchParams.get("q");
         let contacts = await contactApi.getAll(searchQuery);
 
         return json({ searchQuery, contacts });
-      },
-      action: async () => {
+      }}
+      action={async () => {
         let contact = await contactApi.createEmpty();
 
         return redirect(`/contacts/${contact.id}/edit`);
-      },
-      children: [
-        {
-          errorElement: <ErrorPage />,
-          children: [
-            { index: true, element: <Index /> },
-            {
-              path: "contacts/:contactId",
-              element: <Contact />,
-              loader: async ({ params }) => {
-                let contact = await contactApi.getById(params.contactId);
-                if (!contact) {
-                  throw json(
-                    { contact },
-                    { status: 404, statusText: "Not Found" }
-                  );
-                }
+      }}
+    >
+      <Route errorElement={<ErrorPage />}>
+        <Route index element={<Index />} />
+        <Route
+          path="contacts/:contactId"
+          element={<Contact />}
+          loader={async ({ params }) => {
+            let contact = await contactApi.getById(params.contactId);
+            if (!contact) {
+              throw json({ contact }, { status: 404, statusText: "Not Found" });
+            }
 
-                return json({ contact });
-              },
-              action: async ({ request, params }) => {
-                let formData = await request.formData();
-                let favorite = formData.get("favorite") === "true";
+            return json({ contact });
+          }}
+          action={async ({ request, params }) => {
+            let formData = await request.formData();
+            let favorite = formData.get("favorite") === "true";
 
-                await contactApi.updateById(params.contactId, { favorite });
+            await contactApi.updateById(params.contactId, { favorite });
 
-                return json({ ok: true });
-              },
-            },
-            {
-              path: "contacts/:contactId/edit",
-              element: <EditContact />,
-              loader: async ({ params }) => {
-                let contact = await contactApi.getById(params.contactId);
+            return json({ ok: true });
+          }}
+        />
+        <Route
+          path="contacts/:contactId/edit"
+          element={<EditContact />}
+          loader={async ({ params }) => {
+            let contact = await contactApi.getById(params.contactId);
 
-                return json({ contact });
-              },
-              action: async ({ request, params }) => {
-                let formData = await request.formData();
-                let updates = Object.fromEntries(formData);
+            return json({ contact });
+          }}
+          action={async ({ request, params }) => {
+            let formData = await request.formData();
+            let updates = Object.fromEntries(formData);
 
-                await contactApi.updateById(params.contactId, updates);
+            await contactApi.updateById(params.contactId, updates);
 
-                return redirect(`/contacts/${params.contactId}`);
-              },
-            },
-            {
-              path: "contacts/:contactId/destroy",
-              errorElement: <div>Oops! There was an error.</div>,
-              action: async ({ params }) => {
-                await contactApi.deleteById(params.contactId);
+            return redirect(`/contacts/${params.contactId}`);
+          }}
+        />
+        <Route
+          path="contacts/:contactId/destroy"
+          action={async ({ params }) => {
+            await contactApi.deleteById(params.contactId);
 
-                return redirect("/");
-              },
-            },
-          ],
-        },
-      ],
-    },
-  ],
+            return redirect("/");
+          }}
+        />
+      </Route>
+    </Route>
+  ),
   {
     future: {
       v7_fetcherPersist: true,
