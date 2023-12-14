@@ -42,6 +42,14 @@ let router = createBrowserRouter(
 
             return json({ contact });
           },
+          action: async ({ request, params }) => {
+            let formData = await request.formData();
+            let favorite = formData.get("favorite") === "true";
+
+            await contactApi.updateById(params.contactId, { favorite });
+
+            return json({ ok: true });
+          },
         },
         {
           path: "contacts/:contactId/edit",
