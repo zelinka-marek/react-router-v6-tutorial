@@ -1,10 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter, json } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  json,
+  redirect,
+} from "react-router-dom";
 import * as contactApi from "./api/contacts";
 import { ErrorPage } from "./components/error-page";
 import "./index.css";
 import Contact from "./routes/contact";
+import EditContact from "./routes/edit-contact";
 import Root from "./routes/root";
 
 let router = createBrowserRouter(
@@ -31,6 +37,23 @@ let router = createBrowserRouter(
             let contact = await contactApi.getById(params.contactId);
 
             return json({ contact });
+          },
+        },
+        {
+          path: "contacts/:contactId/edit",
+          element: <EditContact />,
+          loader: async ({ params }) => {
+            let contact = await contactApi.getById(params.contactId);
+
+            return json({ contact });
+          },
+          action: async ({ request, params }) => {
+            let formData = await request.formData();
+            let updates = Object.fromEntries(formData);
+
+            await contactApi.updateById(params.contactId, updates);
+
+            return redirect(`/contacts/${params.contactId}`);
           },
         },
       ],
