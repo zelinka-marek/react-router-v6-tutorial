@@ -2,7 +2,9 @@ import { Form, useFetcher, useLoaderData } from "react-router-dom";
 
 function Favorite({ contact }) {
   let fetcher = useFetcher();
-  let favorite = contact.favorite;
+  let favorite = fetcher.formData
+    ? fetcher.formData.get("favorite") === "true"
+    : contact.favorite;
 
   return (
     <fetcher.Form method="post">
