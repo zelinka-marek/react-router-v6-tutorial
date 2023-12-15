@@ -11,10 +11,10 @@ import {
 import * as contactApi from "./api/contacts";
 import { ErrorPage } from "./components/error-page";
 import "./index.css";
+import Root from "./root";
 import Contact from "./routes/contact";
 import EditContact from "./routes/edit-contact";
 import Index from "./routes/index";
-import Root from "./routes/root";
 
 let router = createBrowserRouter(
   createRoutesFromElements(
