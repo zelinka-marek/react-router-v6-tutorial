@@ -82,7 +82,7 @@ let router = createBrowserRouter(
           }}
         />
       </Route>
-    </Route>
+    </Route>,
   ),
   {
     future: {
@@ -91,11 +91,11 @@ let router = createBrowserRouter(
       v7_partialHydration: true,
       v7_relativeSplatPath: true,
     },
-  }
+  },
 );
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );

@@ -4,6 +4,7 @@ import {
   NavLink,
   Outlet,
   useLoaderData,
+  useMatch,
   useNavigation,
 } from "react-router-dom";
 import { Logo } from "../components/logo";
@@ -20,6 +21,9 @@ export default function Root() {
   let isLoading = navigation.state === "loading";
   let shouldDisplayLoadingOverlay = !isSearching && isLoading;
 
+  let rootMatch = useMatch("/");
+  let shouldForceDisplaySidebar = Boolean(rootMatch);
+
   return (
     <>
       <nav className="sticky top-0 z-40 border-b border-gray-200 bg-white lg:hidden">
@@ -34,9 +38,16 @@ export default function Root() {
           <Logo className="h-6 w-auto text-blue-600" />
         </div>
       </nav>
-      <aside className="fixed inset-y-0 left-20 flex w-96 flex-col divide-y divide-gray-200 border-r border-gray-200 max-xl:hidden">
+      <aside
+        className={classNames(
+          "fixed inset-y-0 flex flex-col divide-y divide-gray-200 lg:left-20 xl:w-96 xl:border-r xl:border-gray-200",
+          shouldForceDisplaySidebar
+            ? "inset-x-0 max-lg:top-16"
+            : "max-xl:hidden",
+        )}
+      >
         <div className="flex gap-5 px-4 py-4 sm:px-6 lg:px-8">
-          <search role="search">
+          <search role="search" className="flex-auto">
             <Form>
               <SearchBar />
             </Form>
@@ -116,6 +127,7 @@ export default function Root() {
         className={classNames(
           "transition-opacity delay-200 duration-200 lg:pl-20",
           shouldDisplayLoadingOverlay ? "opacity-25" : "",
+          shouldForceDisplaySidebar ? "hidden" : "",
         )}
       >
         <div className="xl:pl-96">
