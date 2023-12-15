@@ -1,6 +1,7 @@
-import { MagnifyingGlassIcon, ArrowPathIcon } from "@heroicons/react/20/solid";
+import { ArrowPathIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useEffect } from "react";
 import { useNavigation, useSearchParams, useSubmit } from "react-router-dom";
+import { Input } from "./forms";
 
 export function SearchBar() {
   let [searchParams] = useSearchParams();
@@ -27,7 +28,7 @@ export function SearchBar() {
           <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
         )}
       </div>
-      <input
+      <Input
         type="search"
         name="q"
         id="q"
@@ -38,7 +39,7 @@ export function SearchBar() {
             replace: !isFirstSearch,
           });
         }}
-        className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6"
+        className="pl-10"
         placeholder="Search"
         aria-label="Search contacts"
       />
