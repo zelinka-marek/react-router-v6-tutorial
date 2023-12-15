@@ -70,14 +70,14 @@ export default function Root() {
         </div>
         <nav className="flex-auto scroll-py-4 overflow-y-auto px-4 py-4 sm:px-6 lg:px-8">
           {contacts.length ? (
-            <ul className="-mx-2">
+            <ul className="-mx-3">
               {contacts.map((contact) => (
                 <li key={contact.id}>
                   <NavLink
                     to={`/contacts/${contact.id}`}
                     className={({ isActive, isPending }) =>
                       classNames(
-                        "group flex items-center gap-3 rounded-md p-2 text-sm",
+                        "group flex items-center gap-3 rounded-md px-3 py-2 text-sm",
                         isActive ? "bg-blue-600" : "",
                         !isActive && !isPending
                           ? "hover:bg-gray-100 hover:text-gray-900"
