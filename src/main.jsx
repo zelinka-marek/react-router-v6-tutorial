@@ -8,13 +8,13 @@ import {
   json,
   redirect,
 } from "react-router-dom";
-import * as contactApi from "./api/contacts";
-import { ErrorPage } from "./components/error-page";
+import * as contactApi from "./api/contacts.js";
+import { ErrorPage } from "./components/error-page.jsx";
 import "./index.css";
-import Root from "./root";
-import Contact from "./routes/contact";
-import EditContact from "./routes/edit-contact";
-import Index from "./routes/index";
+import Root from "./root.jsx";
+import Contact from "./routes/contact.jsx";
+import EditContact from "./routes/edit-contact.jsx";
+import Index from "./routes/index.jsx";
 
 let router = createBrowserRouter(
   createRoutesFromElements(

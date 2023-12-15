@@ -12,9 +12,9 @@ import {
   useMatch,
   useNavigation,
 } from "react-router-dom";
-import { Logo } from "./components/logo";
-import { SearchBar } from "./components/search-bar";
-import { classNames } from "./utils/misc";
+import { Logo } from "./components/logo.jsx";
+import { SearchBar } from "./components/search-bar.jsx";
+import { classNames } from "./utils/misc.js";
 
 export default function Root() {
   let { contacts } = useLoaderData();

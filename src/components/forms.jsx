@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { classNames } from "../utils/misc";
+import { classNames } from "../utils/misc.js";
 
 export function Label({ className, ...props }) {
   return (

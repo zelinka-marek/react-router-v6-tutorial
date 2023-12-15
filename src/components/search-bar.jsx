@@ -1,7 +1,7 @@
 import { ArrowPathIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useEffect } from "react";
 import { useNavigation, useSearchParams, useSubmit } from "react-router-dom";
-import { Input } from "./forms";
+import { Input } from "./forms.jsx";
 
 export function SearchBar() {
   let [searchParams] = useSearchParams();

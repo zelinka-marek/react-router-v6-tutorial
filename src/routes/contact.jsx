@@ -1,6 +1,6 @@
 import { PencilIcon, StarIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { Form, useFetcher, useLoaderData } from "react-router-dom";
-import { classNames } from "../utils/misc";
+import { classNames } from "../utils/misc.js";
 
 function Favorite({ contact }) {
   let fetcher = useFetcher();

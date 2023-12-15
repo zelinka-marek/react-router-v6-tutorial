@@ -1,6 +1,6 @@
 import { PlusSmallIcon } from "@heroicons/react/20/solid";
 import { Form } from "react-router-dom";
-import { Empty } from "../components/empty";
+import { Empty } from "../components/empty.jsx";
 
 export default function Index() {
   return (

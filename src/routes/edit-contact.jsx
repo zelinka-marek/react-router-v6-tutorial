@@ -1,5 +1,5 @@
 import { Form, useLoaderData, useNavigate } from "react-router-dom";
-import { Input, Label, TextArea } from "../components/forms";
+import { Input, Label, TextArea } from "../components/forms.jsx";
 
 export default function EditContact() {
   const { contact } = useLoaderData();
