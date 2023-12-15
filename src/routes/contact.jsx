@@ -114,9 +114,7 @@ export default function Contact() {
         <Favorite contact={contact} />
       </div>
       <div className="mt-8 space-y-2 sm:mt-6">
-        <h3 className="text-base font-semibold leading-7 text-gray-900">
-          About
-        </h3>
+        <h3 className="text-base/7 font-semibold text-gray-900">About</h3>
         <div className="border-t border-gray-100">
           <dl className="divide-y divide-gray-100 text-sm/6">
             <div className="py-6 sm:grid sm:grid-cols-3 sm:gap-4">
