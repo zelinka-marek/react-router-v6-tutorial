@@ -89,7 +89,7 @@ export default function Root() {
                                 "h-5 w-5",
                                 isActive
                                   ? "text-white"
-                                  : "text-yellow-300 group-hover:text-yellow-400",
+                                  : "text-yellow-400 group-hover:text-yellow-500",
                               )}
                             />
                           )}
@@ -112,7 +112,7 @@ export default function Root() {
             shouldDisplayLoadingOverlay ? "opacity-25" : "",
           )}
         >
-          <div className="max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+          <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
             <Outlet />
           </div>
         </main>
