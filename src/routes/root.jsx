@@ -1,6 +1,11 @@
-import { PlusSmallIcon, StarIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronLeftIcon,
+  PlusSmallIcon,
+  StarIcon,
+} from "@heroicons/react/20/solid";
 import {
   Form,
+  Link,
   NavLink,
   Outlet,
   useLoaderData,
@@ -131,6 +136,17 @@ export default function Root() {
         )}
       >
         <div className="xl:pl-96">
+          <nav className="border-b border-gray-200 xl:hidden" aria-label="Back">
+            <div className="mx-auto max-w-3xl px-4 py-3 sm:px-6 lg:px-8">
+              <Link
+                to="/"
+                className="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-700"
+              >
+                <ChevronLeftIcon className="-ml-1 h-5 w-5 flex-none text-gray-400" />
+                Contacts
+              </Link>
+            </div>
+          </nav>
           <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
             <Outlet />
           </div>
