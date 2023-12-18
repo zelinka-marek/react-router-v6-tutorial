@@ -132,7 +132,7 @@ export default function Root() {
         className={classNames(
           "transition-opacity delay-200 duration-200 lg:pl-20",
           shouldDisplayLoadingOverlay ? "opacity-25" : "",
-          shouldForceDisplaySidebar ? "hidden" : "",
+          shouldForceDisplaySidebar ? "max-xl:hidden" : "",
         )}
       >
         <div className="xl:pl-96">
