@@ -3,8 +3,8 @@ import { Form, useFetcher, useLoaderData } from "react-router-dom";
 import { classNames } from "../utils/misc.js";
 
 function Favorite({ contact }) {
-  let fetcher = useFetcher();
-  let favorite = fetcher.formData
+  const fetcher = useFetcher();
+  const favorite = fetcher.formData
     ? fetcher.formData.get("favorite") === "true"
     : contact.favorite;
 
@@ -82,7 +82,7 @@ export default function Contact() {
               method="post"
               action="destroy"
               onSubmit={(event) => {
-                let shouldDelete = confirm(
+                const shouldDelete = confirm(
                   "Please confirm you want to delete this record.",
                 );
                 if (!shouldDelete) {

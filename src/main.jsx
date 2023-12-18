@@ -16,20 +16,20 @@ import Contact from "./routes/contact.jsx";
 import EditContact from "./routes/edit-contact.jsx";
 import Index from "./routes/index.jsx";
 
-let router = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
       path="/"
       element={<Root />}
       loader={async ({ request }) => {
-        let url = new URL(request.url);
-        let searchQuery = url.searchParams.get("q");
-        let contacts = await contactApi.getAll(searchQuery);
+        const url = new URL(request.url);
+        const searchQuery = url.searchParams.get("q");
+        const contacts = await contactApi.getAll(searchQuery);
 
         return json({ searchQuery, contacts });
       }}
       action={async () => {
-        let contact = await contactApi.createEmpty();
+        const contact = await contactApi.createEmpty();
 
         return redirect(`/contacts/${contact.id}/edit`);
       }}
@@ -40,7 +40,7 @@ let router = createBrowserRouter(
           path="contacts/:contactId"
           element={<Contact />}
           loader={async ({ params }) => {
-            let contact = await contactApi.getById(params.contactId);
+            const contact = await contactApi.getById(params.contactId);
             if (!contact) {
               throw json({ contact }, { status: 404, statusText: "Not Found" });
             }
@@ -48,8 +48,8 @@ let router = createBrowserRouter(
             return json({ contact });
           }}
           action={async ({ request, params }) => {
-            let formData = await request.formData();
-            let favorite = formData.get("favorite") === "true";
+            const formData = await request.formData();
+            const favorite = formData.get("favorite") === "true";
 
             await contactApi.updateById(params.contactId, { favorite });
 
@@ -60,13 +60,13 @@ let router = createBrowserRouter(
           path="contacts/:contactId/edit"
           element={<EditContact />}
           loader={async ({ params }) => {
-            let contact = await contactApi.getById(params.contactId);
+            const contact = await contactApi.getById(params.contactId);
 
             return json({ contact });
           }}
           action={async ({ request, params }) => {
-            let formData = await request.formData();
-            let updates = Object.fromEntries(formData);
+            const formData = await request.formData();
+            const updates = Object.fromEntries(formData);
 
             await contactApi.updateById(params.contactId, updates);
 

@@ -4,15 +4,21 @@ import { useNavigation, useSearchParams, useSubmit } from "react-router-dom";
 import { Input } from "./forms.jsx";
 
 export function SearchBar() {
-  let [searchParams] = useSearchParams();
-  let searchQuery = searchParams.get("q");
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q");
 
-  let navigation = useNavigation();
-  let isSearching =
+  const navigation = useNavigation();
+  const isSearching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
 
-  let submit = useSubmit();
+  const submit = useSubmit();
+  function handleChange(event) {
+    const isFirstSearch = searchQuery === null;
+    submit(event.currentTarget.form, {
+      replace: !isFirstSearch,
+    });
+  }
 
   // Sync input value with the current URL Search Params
   useEffect(() => {
@@ -33,12 +39,7 @@ export function SearchBar() {
         name="q"
         id="q"
         defaultValue={searchQuery}
-        onChange={(event) => {
-          let isFirstSearch = searchQuery === null;
-          submit(event.currentTarget.form, {
-            replace: !isFirstSearch,
-          });
-        }}
+        onChange={handleChange}
         className="pl-10"
         placeholder="Search"
         aria-label="Search contacts"

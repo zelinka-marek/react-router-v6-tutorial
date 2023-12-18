@@ -17,17 +17,17 @@ import { SearchBar } from "./components/search-bar.jsx";
 import { classNames } from "./utils/misc.js";
 
 export default function Root() {
-  let { contacts } = useLoaderData();
+  const { contacts } = useLoaderData();
 
-  let navigation = useNavigation();
-  let isSearching =
+  const navigation = useNavigation();
+  const isSearching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
-  let isLoading = navigation.state === "loading";
-  let shouldDisplayLoadingOverlay = !isSearching && isLoading;
+  const isLoading = navigation.state === "loading";
+  const shouldDisplayLoadingOverlay = !isSearching && isLoading;
 
-  let rootMatch = useMatch("/");
-  let shouldForceDisplaySidebar = Boolean(rootMatch);
+  const rootMatch = useMatch("/");
+  const shouldForceDisplaySidebar = Boolean(rootMatch);
 
   return (
     <>

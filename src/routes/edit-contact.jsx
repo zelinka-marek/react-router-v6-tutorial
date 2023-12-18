@@ -4,7 +4,7 @@ import { Input, Label, TextArea } from "../components/forms.jsx";
 export default function EditContact() {
   const { contact } = useLoaderData();
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   function goBack() {
     navigate("..", { relative: "path", replace: true });
   }
